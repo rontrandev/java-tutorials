@@ -13,7 +13,7 @@ class PersonTest {
     private static final ObjectReader reader = new ObjectMapper().reader();
 
     @Test
-    void shouldParseJsonToObjectSuccessfully() {
+    void shouldDeserializeJsonToObjectSuccessfully() {
         var json = "{\"firstName\":\"Ron\",\"lastName\":\"Tran\"}";
         var person = assertDoesNotThrow(() -> reader.readValue(json, Person.class));
         assertNotNull(person);
@@ -22,16 +22,16 @@ class PersonTest {
     }
 
     @Test
-    void shouldParseObjectToJsonSuccessfully() {
+    void shouldSerializeObjectToJsonSuccessfully() {
         var person = Person.builder().firstName("Ron").lastName("Tran").build();
         var json = assertDoesNotThrow(() -> writer.writeValueAsString(person));
         assertEquals(
-                """
-                {
-                  "firstName" : "Ron",
-                  "lastName" : "Tran"
-                }
-                """.stripTrailing(),
-                json);
+            """
+            {
+              "firstName" : "Ron",
+              "lastName" : "Tran"
+            }
+            """.stripTrailing(),
+            json);
     }
 }

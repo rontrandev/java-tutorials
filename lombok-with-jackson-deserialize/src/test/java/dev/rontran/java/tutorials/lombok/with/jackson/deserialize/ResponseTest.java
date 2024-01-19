@@ -13,7 +13,7 @@ class ResponseTest {
     private static final ObjectReader reader = new ObjectMapper().reader();
 
     @Test
-    void shouldParseJsonToObjectSuccessfully() {
+    void shouldDeserializeJsonToObjectSuccessfully() {
         var json = "{\"data\":\"Hello, Lombok!\"}";
         var response = assertDoesNotThrow(() -> reader.readValue(json, Response.class));
         assertNotNull(response);
@@ -21,7 +21,7 @@ class ResponseTest {
     }
 
     @Test
-    void shouldParseObjectToJsonSuccessfully() {
+    void shouldSerializeObjectToJsonSuccessfully() {
         var response = new Response("Hello, Jackson!");
         var json = assertDoesNotThrow(() -> writer.writeValueAsString(response));
         assertEquals(
